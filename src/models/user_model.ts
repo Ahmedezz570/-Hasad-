@@ -5,7 +5,9 @@ export interface User extends Document {
     email: string;
     password: string;  
     updatedAt: Date;
-    createdAt: Date;              
+    createdAt: Date;      
+    role?: "user" | "admin";
+    avatarUrl?: string;        
 }
 
 const userSchema = new mongoose.Schema<User>({
@@ -14,6 +16,8 @@ const userSchema = new mongoose.Schema<User>({
     password: { type: String, required: true },
     updatedAt: { type: Date, default: Date.now },
     createdAt: { type: Date, default: Date.now },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    avatarUrl: { type: String , default: ""}
 },
     {timestamps: true}
 );

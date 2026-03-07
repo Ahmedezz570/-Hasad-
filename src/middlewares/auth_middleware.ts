@@ -18,4 +18,13 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     }catch (error) {
         res.status(401).json({ message: "Not authorized, token failed" });
     }
-}                
+}       
+
+const admin = (req: Request, res: Response, next: NextFunction) => {
+    const user = (req as any).user;
+    if (user && user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).json({ message: "Not authorized as an admin" });
+    }
+}
